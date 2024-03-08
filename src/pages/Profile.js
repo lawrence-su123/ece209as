@@ -3,17 +3,25 @@ import { useNavigate } from "react-router-dom";
 import FirstNameFrame from "../components/FirstNameFrame";
 import styles from "./Profile.module.css";
 
+export const [age, setAge] = useState("");
+export const [favoriteGenres, setFavoriteGenres] = useState("");
+export const [readingGoals, setReadingGoals] = useState("");
+export const [pastBooksRead, setPastBooksRead] = useState("");
+
 const Profile = () => {
   const navigate = useNavigate();
 
-  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [favoriteGenres, setFavoriteGenres] = useState("");
-  const [readingGoals, setReadingGoals] = useState("");
-  const [age, setAge] = useState("");
-  const [pastBooksRead, setPastBooksRead] = useState("");
-
+  //const [favoriteGenres, setFavoriteGenres] = useState("");
+  //const [readingGoals, setReadingGoals] = useState("");
+  //const [age, setAge] = useState("");
+  //const [pastBooksRead, setPastBooksRead] = useState("");
+  const [value, setValue] = useState("");
+  const options = [
+    {label: "1", favoriteGenres: "Fiction"},
+    {label: "2", favoriteGenres: "Sci-Fi"}
+  ]
 
   const onSideBar2ContainerClick = useCallback(() => {
     navigate("/");
@@ -23,6 +31,10 @@ const Profile = () => {
     // Handle saving data
     console.log("Data saved:", { firstName, lastName, favoriteGenres, pastBooksRead, readingGoals, age });
   };
+
+  function handleSelect(event){
+    setValue(event.target.value)
+  }
 
   return (
     <div className={styles.profile}>
@@ -121,6 +133,12 @@ const Profile = () => {
               />
 
               <h1 className={styles.favoriteGenres}>Favorite Genres</h1>
+              <select className={styles.frameDiv} onChange={handleSelect}>
+                {options.map(option => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+
               <input
                 type="text"
                 className={styles.frameDiv}
@@ -148,8 +166,6 @@ const Profile = () => {
                 onChange={(e) => setAge(e.target.value)}
               />
             </div>
-            
-
 
           </div>
         </div>
